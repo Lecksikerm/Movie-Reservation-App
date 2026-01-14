@@ -7,6 +7,8 @@ import { AuthModule } from './common/auth/auth.module';
 import { User } from './common/entities/user.entity';
 import { MoviesModule } from './modules/movies/movies.module';
 import { Movie } from './common/entities/movie.entity';
+import { ShowtimesModule } from './modules/showtimes/showtimes.module';
+import { Showtime } from './common/entities/showtime.entity';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { Movie } from './common/entities/movie.entity';
         username: config.get<string>('DB_USER'),
         password: config.get<string>('DB_PASS'),
         database: config.get<string>('DB_NAME'),
-        entities: [User, Movie],
+        entities: [User, Movie, Showtime],
         synchronize: false,
         logging: true,
       }),
@@ -32,6 +34,7 @@ import { Movie } from './common/entities/movie.entity';
     UsersModule,
     AuthModule,
     MoviesModule,
+    ShowtimesModule,
   ],
   controllers: [HealthController],
 })

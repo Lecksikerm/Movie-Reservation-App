@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
 import { User } from '../common/entities/user.entity';
 import { Movie } from '../common/entities/movie.entity';
+import { Showtime } from 'src/common/entities/showtime.entity';
 
 config();
 
@@ -17,7 +18,7 @@ export default new DataSource({
     database: configService.get<string>('DB_NAME'),
     synchronize: false, 
     logging: true,
-    entities: [User, Movie],
+    entities: [User, Movie, Showtime],
     migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
     migrationsTableName: 'migrations',
     migrationsRun: false,

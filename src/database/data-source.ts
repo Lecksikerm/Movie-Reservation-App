@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { User } from '../common/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { Movie } from '../common/entities/movie.entity';
+import { Showtime } from 'src/common/entities/showtime.entity';
 
 
 export const AppDataSource = new DataSource({
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASS || 'postgres',
   database: process.env.DB_NAME || 'movie_reservation',
 
-  entities: [User, Movie],
+  entities: [User, Movie, Showtime],
   migrations: ['src/database/migrations/*.ts'],
 
   synchronize: false,
