@@ -18,7 +18,17 @@ async function bootstrap() {
     .setTitle('Movie Reservation API')
     .setDescription('Backend for movie reservation service')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'Bearer',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
