@@ -2,11 +2,11 @@ import { AppDataSource } from '../data-source';
 import { User, UserRole } from '../../common/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 
-async function seedAdmin() {
+async function seedSecondAdmin() {
     const dataSource = await AppDataSource.initialize();
     const repo = dataSource.getRepository(User);
 
-    const email = 'admin@example.com';
+    const email = 'superadmin@example.com';
 
     const existingAdmin = await repo.findOne({ where: { email } });
 
@@ -14,32 +14,30 @@ async function seedAdmin() {
         if (existingAdmin.role !== UserRole.ADMIN) {
             existingAdmin.role = UserRole.ADMIN;
             await repo.save(existingAdmin);
-            console.log('Admin role restored for:', email);
+            console.log('Second admin role restored for:', email);
         } else {
-            console.log('Admin already exists:', email);
+            console.log('Second admin already exists:', email);
         }
 
         await dataSource.destroy();
         return;
     }
 
-    const passwordHash = await bcrypt.hash('Admin@123', 10);
+    const passwordHash = await bcrypt.hash('SuperAdmin@123', 10);
 
     await repo.save({
-        fullName: 'Super Admin',
+        fullName: 'Super Admin 2',
         email,
-        phoneNumber: '08043342674',
+        phoneNumber: '07034523178',
         passwordHash,
         role: UserRole.ADMIN,
     });
 
-    console.log('Admin user created successfully!');
+    console.log('Second admin created successfully!');
     await dataSource.destroy();
 }
 
-seedAdmin().catch(err => {
-    console.error('Failed to seed admin:', err);
+seedSecondAdmin().catch(err => {
+    console.error('Failed to seed second admin:', err);
     process.exit(1);
 });
-
-
