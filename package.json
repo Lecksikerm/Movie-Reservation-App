@@ -18,12 +18,16 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d src/database/data-source.ts",
-    "migration": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d src/database/data-source.ts migration:run",
-    "migration:status": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d src/database/data-source.ts migration:show",
-    "migration:rollback": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d src/database/data-source.ts migration:revert",
-    "migration:generate": "node scripts/migration migration:generate",
-    "migration:create": "node scripts/migration migration:create"
+    "seed:admin": "ts-node -r tsconfig-paths/register src/database/seeds/seed-admin.ts",
+    "seed:admin2": "ts-node -r tsconfig-paths/register src/database/seeds/seed-second-admin.ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d src/config/typeorm.config.ts",
+    "migration": "npm run typeorm migration:run",
+    "migration:status": "npm run typeorm migration:show",
+    "migration:rollback": "npm run typeorm migration:revert",
+    "migration:generate": "npm run typeorm migration:generate",
+    "migration:create": "npm run typeorm migration:create",
+    "migration:drop": "npm run typeorm schema:drop",
+    "migration:fresh": "npm run migration:drop && npm run migration"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
